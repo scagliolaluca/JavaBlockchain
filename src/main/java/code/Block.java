@@ -19,6 +19,9 @@ public class Block {
         this.data = data;
     }
 
+    public boolean GetFirstFlag(){
+        return this.first;
+    }
     public String GetData(){
         return this.data;
     }
