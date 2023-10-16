@@ -10,6 +10,7 @@ import java.math.BigInteger;
 public class Chain {
     List<Block> blocks = new ArrayList<>();
 
+    // Add Block to Chain
     public void addBlock(String data){
 
         Block newBlock;
@@ -28,19 +29,42 @@ public class Chain {
     }
 
     // return last Block
-    public String readLastBlock(){
+    public Block getLastBlock(){
+        // If no Block is in Chain, nothing can be read
+        if (blocks.isEmpty()){
+            throw new NullPointerException("Blockchain is empty!");
+        }
         Block lastBlock = blocks.get(blocks.size() -1);
-        return readBlock(lastBlock);
+        return lastBlock;
     }
 
-    // Read Block
-    public String readBlock(Block block){
-        String data = block.GetData();
-        String timestamp = block.GetTimestamp();
-        String prevHash = block.GetPrevHash();
-        String totalData = "Data: " + data + " Timestamp: " + timestamp + " PreviousHash: " + prevHash;
-        return totalData;
+    // return last Blocks information
+    public String readLastBlock(){
+
+        // If no Block is in Chain, nothing can be read
+        if (blocks.isEmpty()){
+            throw new NullPointerException("Blockchain is empty!");
+        }
+        Block lastBlock = blocks.get(blocks.size() -1);
+        return "Data: " + readBlockData(lastBlock) + " Timestamp: " + readBlockTime(lastBlock) + " PreviousHash: " + readBlockHash(lastBlock);
     }
+
+    // Read Data from Block //Todo: readBlockData(){} (reads last Block)
+    public String readBlockData(Block block){
+        return block.GetData();
+    }
+
+    // Read Timestamp from Block //Todo: readBlockTime(){} (reads last Blocks timestamp)
+    public String readBlockTime(Block block){
+        return block.GetTimestamp();
+    }
+
+    // Read Hash from Block //Todo: readBlockHash(){} (reads last Blocks prevHash)
+    public String readBlockHash(Block block){
+        return block.GetPrevHash();
+    }
+
+
 
     // Hash function to compute the hash of a block
     private String calculateHash(Block block) {
